@@ -1,0 +1,80 @@
+\ifx\beginfile\undefined
+	\def\myyear{2021}
+	\def\beginfile{}
+	\documentclass[landscape,a4paper, ngerman, 12pt]{ctexart}
+	\usepackage[landscape, nohead, left=1cm, right=2cm, top = 1cm, bottom=0cm,nofoot]{geometry}
+	\usepackage{tikz}
+	\usepackage{tcolorbox}
+	\usepackage{ulem}
+	\usetikzlibrary{calc,calendar,shapes}
+	\usepackage{pgffor}
+	\usepackage[hidelinks]{hyperref}
+	%\usepackage{hyperref}
+	\usepackage{multirow}
+	\usepackage{booktabs,siunitx}
+	\usepackage{newclude}
+	\usepackage{graphicx}
+	\usepackage{fancyhdr,fancybox}
+	\pagestyle{fancy}
+	\lhead{}
+	\chead{}
+	\rhead{}
+	\lfoot{
+		\vspace{-1cm}
+		\foreach \i in {Yearly Plan,Calendar}
+		{
+			\parbox{4cm}{
+				\begin{tcolorbox}[colback=gray!15!white,colframe=white]
+					\scriptsize \center \hyperlink{\i}{\i}
+				\end{tcolorbox}
+			}
+		}
+	}
+	\cfoot{}
+	\rfoot{}
+	\renewcommand{\headrulewidth}{0pt}
+	\usepackage{anyfontsize}
+	\fancyput(25.8cm,-8cm){
+		\parbox{1.5cm}{
+			\foreach \i in {01,02,03,04,05,06,07,08,09,10,11,12}
+			{
+				\begin{tcolorbox}[colback=gray!15!white,colframe=white]
+					\hyperlink{\i}{\i}
+				\end{tcolorbox}
+			}
+		}
+	}
+	\usepackage{indentfirst}
+	\setlength{\parindent}{0em}
+	%\setcounter{secnumdepth}{0}
+
+	\usepackage{enumitem,amssymb}
+	\newlist{todolist}{itemize}{2}
+	\setlist[todolist]{label=$\square$}
+	\usepackage{pifont}
+	\newcommand{\cmark}{\ding{51}}%
+	\newcommand{\xmark}{\ding{55}}%
+	\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+	\hspace{-2.5pt}}
+	\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+	
+	\makeatletter
+	\providecommand*\input@path{}
+	\newcommand\addinputpath[1]{
+	\expandafter\def\expandafter\input@path
+	\expandafter{\input@path{#1}}}
+	\IfFileExists{main}
+	{
+		\addinputpath{day/}
+		\addinputpath{month/}
+	}
+	{
+		\addinputpath{../}
+		\addinputpath{../day/}
+		\addinputpath{../month/}
+	}
+	\makeatother
+	\input{courses}
+	\begin{document}
+\fi
+

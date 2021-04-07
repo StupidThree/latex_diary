@@ -1,0 +1,67 @@
+\newpage
+\addcontentsline{toc}{subsection}{\mymonth-\myday}
+\newgeometry{nohead, left=1cm, right=2cm, top = 1cm, bottom=0cm,nofoot}
+
+\begin{tabular}{l|l|l}
+	\begin{minipage}[t]{0.28\textwidth}
+		\hyperlink{\mymonth}{\textit{\Huge\pgfcalendarmonthname{\mymonth}}
+		\hypertarget{\myyear-\mymonth-\myday}{}}
+		\begin{center}
+			\begin{tikzpicture}
+				\newcount\rowcount
+				\rowcount = 1\relax
+				\pgfcalendar{}{\year-\mymonth-01}{\year-\mymonth-last}{
+					\path (0.6*\pgfcalendarcurrentweekday,-0.6*\rowcount)
+					node {\hyperlink{\myyear-\pgfcalendarcurrentmonth-\pgfcalendarcurrentday}{\small\pgfcalendarcurrentday}};
+					\ifnum\pgfcalendarcurrentday=\myday
+						{\fill[gray][fill opacity=0.3] (0.6*\pgfcalendarcurrentweekday,-0.6*\rowcount) circle (8pt);}
+					\fi
+					\ifdate{Sunday}{\advance\rowcount by 1}{}
+				}
+			\end{tikzpicture}
+
+			{
+				\vspace{2em}
+				\centering \footnotesize
+				\begin{tabular}{cp{4.5cm}<{\centering}}
+					\toprule
+					\multicolumn{2}{c}{\textbf{生活记录}} \\
+					\toprule
+					睡眠           &  \SleepRecord   \\
+					\midrule
+					护肤           &   \SkinRecord        \\
+					\midrule
+					饮水           &     \DrinkRecord      \\
+					\midrule
+					运动           &    \SportRecord       \\
+					\midrule
+					单词           &    \WordsRecord       \\
+					\midrule
+					屏幕时间           &   \ScreenTime        \\
+					\bottomrule
+				\end{tabular}
+			}
+
+			\TodayClasses
+
+			\vspace{3em}
+			\textbf{今日key words} \\
+			\TodayKeyWords
+			
+		\end{center}
+	\end{minipage}
+	&
+	\begin{minipage}[t]{0.3\textwidth}
+		\centerline{\textit{\large To Do List}}
+		\begin{itemize}
+			\ToDoList
+		\end{itemize}
+	\end{minipage}
+	&
+	\begin{minipage}[t]{0.4\textwidth}
+		\centerline{\textit{\large Notes}}
+		\Notes
+	\end{minipage}
+\end{tabular}
+
+\restoregeometry

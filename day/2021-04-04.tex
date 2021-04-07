@@ -1,0 +1,35 @@
+\IfFileExists{beginfile}{\input{beginfile}}{\input{../beginfile}}
+\ifx\mymonth\undefined
+	\def\mymonth{04}
+\fi
+\def\myday{04}
+
+\def\TodayClasses{\NoClassDay}
+
+\def\SleepRecord{}
+\def\SkinRecord{}
+\def\DrinkRecord{}
+\def\SportRecord{}
+\def\WordsRecord{}
+\def\ScreenTime{}
+
+\def\NoKeyWords{}
+\def\TodayKeyWords{}
+
+\def\ToDoList
+{
+	\item 作业
+	\begin{todolist}
+		\item 未完成
+		\item[\done] 已完成
+		\item[\wontfix] 已放弃
+	\end{todolist}
+}
+
+\def\Notes
+{
+	
+}
+
+\include*{day_template}
+%\end{document}

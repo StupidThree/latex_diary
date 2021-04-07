@@ -1,0 +1,42 @@
+\input{beginfile}
+
+\newpage
+\newgeometry{nohead, left=1cm, right=1cm, top = 1cm, bottom=0cm,nofoot}
+\thisfancyput(0cm,0cm){}
+\centerline{\huge\hypertarget{Calendar}{Calendar}}
+%\addcontentsline{toc}{section}{Calendar}
+\begin{center}
+	\begin{tikzpicture}
+	\newcounter{i}
+	\newcounter{j}[i]
+	\foreach \mymonth in {01,02,03,04,05,06,07,08,09,10,11,12}
+	{
+		\stepcounter{j}
+		\newcount\rowcount
+		\rowcount = 1\relax
+		\path (6.5*\value{j}+0.5,-6*\value{i}) node {\hyperlink{\mymonth}{\textit{\pgfcalendarmonthname{\mymonth}}}};
+		\pgfcalendar{}{\myyear-\mymonth-01}{\myyear-\mymonth-last}
+		{
+			\path (6.5*\value{j}+0.8*\pgfcalendarcurrentweekday,-6*\value{i}-0.8*\rowcount)
+			node {\hyperlink{\myyear-\pgfcalendarcurrentmonth-\pgfcalendarcurrentday}{\pgfcalendarcurrentday}};
+			\IfFileExists{\myyear-\pgfcalendarcurrentmonth-\pgfcalendarcurrentday}
+				{\fill[gray][fill opacity=0.3] (6.5*\value{j}+0.8*\pgfcalendarcurrentweekday,-6*\value{i}-0.8*\rowcount) circle (8pt);}{}
+			\ifdate{Sunday}{\advance\rowcount by 1}{}
+		}
+		\ifnum\value{j}=4
+			\stepcounter{i}
+		\fi
+	}
+	\end{tikzpicture}
+\end{center}
+\restoregeometry
+
+\foreach \mymonth in {01,02,03,04,05,06,07,08,09,10,11,12}
+{
+	\IfFileExists{\myyear-\mymonth}{\include*{\myyear-\mymonth}}{}
+}
+
+\end{document}
+
+
+		

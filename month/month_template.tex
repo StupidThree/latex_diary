@@ -1,0 +1,54 @@
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{\pgfcalendarmonthname{\mymonth}}
+\newgeometry{nohead, left=1cm, right=2cm, top = 1.5cm, bottom=0cm,nofoot}
+\begin{tabular}{l l}
+	\begin{minipage}{0.15\textwidth}
+		\centerline{\huge\it\hypertarget{\mymonth}{\pgfcalendarmonthname{\mymonth}\hspace{0.5em}}}
+	\end{minipage}
+	&
+	\begin{minipage}{0.85\textwidth}
+		{
+			\newcount \rowcount
+			\rowcount=1\relax
+			\let\%\pgfcalendarshorthand
+			\begin{tikzpicture}[x=1.5cm,y=1.4cm]
+				\begin{scope}
+					[every node/.style={rectangle,minimum width=2.4cm}]
+					\path (0,0) node {Mon};
+					\path (2,0) node {Tue};
+					\path (4,0) node {Wed};
+					\path (6,0) node {Thu};
+					\path (8,0) node {Fri};
+					\path (10,0) node {Sat};
+					\path (12,0) node {Sun};
+				\end{scope}
+				\pgfcalendar{cal}{\myyear-\mymonth-01}{\myyear-\mymonth-last}
+				{
+					\def\thebackground{white}
+					\ifcsdef{\pgfcalendarsuggestedname}
+					{
+						\def\thecontents{\csuse{\pgfcalendarsuggestedname}}
+					}
+					{
+						\def\thecontents{\mbox{}}
+					}
+					\path (2*\pgfcalendarcurrentweekday,-2*\rowcount+0.8)
+					node[rectangle split,rectangle split parts=2,rectangle split part fill={gray!20,\thebackground},draw] 
+					{
+						\hyperlink{\myyear-\mymonth-\pgfcalendarcurrentday}{\%d-}
+						\nodepart{two}
+						\parbox[t][1.75cm]{2.5cm}{\scriptsize\thecontents}
+					};
+					\ifdate{Sunday}{\advance\rowcount by 1}{}
+				}
+			\end{tikzpicture}
+		}
+	\end{minipage}
+\end{tabular}
+\restoregeometry
+
+\pgfcalendar{}{\myyear-\mymonth-01}{\myyear-\mymonth-last}
+{
+	\IfFileExists{\myyear-\mymonth-\pgfcalendarcurrentday}{\include*{\myyear-\mymonth-\pgfcalendarcurrentday}}{}
+}
